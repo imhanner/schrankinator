@@ -1,4 +1,6 @@
-const data = {};
+let data = {};
+const getBoxes = () => document.querySelectorAll(`.container .box`);
+const getForm = () => document.querySelector(`form`);
 const getInputTitle = () => document.getElementById('inputTitle');
 const getInputContent = () => document.getElementById('inputContent');
 
@@ -19,14 +21,14 @@ function setup() {
         }
     });
 
-    const boxes = document.querySelectorAll(`.container .box`);
+    const boxes = getBoxes();
     boxes.forEach(element => {
         update(element);
 
         element.addEventListener('click', () => {
             console.log(`click ${element.id}`);
 
-            boxes.forEach(box => box.classList.remove('current'));
+            clearCurrentBoxSelection();
             element.classList.add('current');
 
             const inputTitle = getInputTitle();
@@ -47,6 +49,13 @@ function update(element) {
     element.title = data[`${element.id}`]?.title ?? element.id;
 }
 
+function clearCurrentBoxSelection() {
+    getBoxes().forEach(box => box.classList.remove('current'));
+    getInputTitle().value = '';
+    getInputContent().value = '';
+    getForm().classList.add('d-none');
+}
+
 function exportJson() {
     const a = document.createElement('a');
     a.classList.add = 'd-none';
@@ -58,4 +67,14 @@ function exportJson() {
     document.body.appendChild(a);
     a.click();
     a.remove();
+}
+
+function importJson(input) {
+    const reader = new FileReader();
+    reader.addEventListener('load', (event) => {
+        data = JSON.parse(event.target.result);
+        getBoxes().forEach(update);
+        clearCurrentBoxSelection();
+    });
+    reader.readAsText(input.files[0]);
 }

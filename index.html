@@ -9,9 +9,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Schrankinator</title>
 </head>
 <body class="container">
+    <div class="mb-3">
+        <label for="formFile" class="form-label">Importiere gespeicherten Schrank</label>
+        <input class="form-control" type="file" id="formFile" accept="application/JSON" title="schrank.json" onchange="importJson(this);">
+    </div>
     <div class="cabinet">
         <div class="box" id="1"></div>
         <div class="box" id="2"></div>
@@ -67,8 +71,8 @@
             <label class="form-label" for="inputContent">Inhalt</label>
             <textarea class="form-control" id="inputContent" cols="30" rows="10"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Speichern</button>
-        <button type="button" class="btn btn-danger" onclick="exportJson();">Export</button>
+        <button type="submit" class="btn btn-primary" title="Daten dieses Segments zwischenspeichern">Übernehmen</button>
+        <button type="button" class="btn btn-secondary ms-auto" onclick="exportJson();" title="Aktuelle Schrank-Konfiguration herunterladen">Download</button>
     </form>
 </body>
 </html>
