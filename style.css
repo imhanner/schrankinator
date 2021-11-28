@@ -3,21 +3,17 @@
     --col-w-small: 60px;
     --row-h: 40px;
     --row-h-small: calc(50px * 3 / 15);
+
+    --color-hover: rgb(36, 134, 226);
 }
 
-.container {
+.cabinet {
     width: 500px;
     display: grid;
     column-gap: 1px;
     row-gap: 1px;
     grid-template-columns: [first] var(--col-w) var(--col-w) var(--col-w-small) var(--col-w-small) var(--col-w-small) var(--col-w-small) var(--col-w) var(--col-w) [end] var(--col-w) var(--col-w) var(--col-w);
     grid-template-rows: [row1-start] var(--row-h) var(--row-h) var(--row-h) var(--row-h) var(--row-h) var(--row-h) [row2-start] var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) [row3-start] calc(var(--row-h) * 4) [last-line];
-}
-
-.background-x {
-    background-image: url(bg2.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 .box {
@@ -28,11 +24,20 @@
     text-align: center;
 }
 
-.box:hover {
+.box:hover, .box.current {
     border-radius: 20px;
-    border: 2px rgb(36, 134, 226) dashed;
-    color: rgb(36, 134, 226) !important;
 }
+
+.box:hover {
+    border: 2px dashed var(--color-hover) !important;
+    color: var(--color-hover) !important;
+}
+
+.box.current {
+    filter: drop-shadow(0 0 10px var(--color-hover));
+}
+
+
 
 /* col 1 */
 
