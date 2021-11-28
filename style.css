@@ -8,11 +8,13 @@
 .container {
     width: 500px;
     display: grid;
+    column-gap: 1px;
+    row-gap: 1px;
     grid-template-columns: [first] var(--col-w) var(--col-w) var(--col-w-small) var(--col-w-small) var(--col-w-small) var(--col-w-small) var(--col-w) var(--col-w) [end] var(--col-w) var(--col-w) var(--col-w);
     grid-template-rows: [row1-start] var(--row-h) var(--row-h) var(--row-h) var(--row-h) var(--row-h) var(--row-h) [row2-start] var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) var(--row-h-small) [row3-start] calc(var(--row-h) * 4) [last-line];
 }
 
-.background {
+.background-x {
     background-image: url(bg2.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -21,7 +23,15 @@
 .box {
     background: rgba(255, 0, 0, 0.5);
     border-radius: 5px;
-    border: 2px green solid;
+    border: 1px grey solid;
+    transition: all .2s ease-in-out;
+    text-align: center;
+}
+
+.box:hover {
+    border-radius: 20px;
+    border: 2px rgb(36, 134, 226) dashed;
+    color: rgb(36, 134, 226) !important;
 }
 
 /* col 1 */
@@ -226,4 +236,62 @@
 .box:nth-child(40) {
     grid-column: 11 / 12;
     grid-row: 3 / 5;
+}
+
+.box:is(
+    :nth-child(1),
+    :nth-child(2),
+    :nth-child(3),
+    :nth-child(6),
+    :nth-child(7),
+    :nth-child(11),
+    :nth-child(12),
+    :nth-child(18),
+    :nth-child(19),
+    :nth-child(20),
+    :nth-child(23),
+    :nth-child(24),
+    :nth-child(25),
+    :nth-child(26),
+    :nth-child(29),
+    :nth-child(30),
+    :nth-child(31),
+    :nth-child(32),
+    :nth-child(33),
+    :nth-child(36),
+) {
+    background: whitesmoke;
+    color: darkgray;
+}
+
+.box:is(
+    :nth-child(4),
+    :nth-child(5),
+    :nth-child(8),
+    :nth-child(9),
+    :nth-child(10),
+    :nth-child(13),
+    :nth-child(14),
+    :nth-child(15),
+    :nth-child(16),
+    :nth-child(17),
+    :nth-child(21),
+    :nth-child(22),
+    :nth-child(27),
+    :nth-child(28),
+    :nth-child(34),
+    :nth-child(35),
+    :nth-child(37),
+) {
+    background: darkgrey;
+    color: whitesmoke;
+}
+
+.box:is(
+    :nth-child(38),
+    :nth-child(39),
+    :nth-child(40),
+) {
+    background: rgb(49, 37, 51);
+    color: whitesmoke;
 }
