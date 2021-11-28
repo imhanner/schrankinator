@@ -47,3 +47,15 @@ function update(element) {
     element.title = data[`${element.id}`]?.title ?? element.id;
 }
 
+function exportJson() {
+    const a = document.createElement('a');
+    a.classList.add = 'd-none';
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(data)], { type: 'application/json' }));
+    a.download = 'schrank.json';
+    a.target = '_blank'
+
+    // It needs to be added to the DOM so it can be clicked
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+}
