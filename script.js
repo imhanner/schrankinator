@@ -1,4 +1,25 @@
 let data = {};
+const connections = [
+    [ 2, 3],
+    [ 4, 5],
+    [ 6, 7],
+    [ 9,10],
+    [11,12],
+    [19,20],
+    [21,22],
+    [23,24],
+    [27,28],
+    [29,30],
+];
+const connectedBoxesOf = (box) => {
+    const currentId = Number(box.id);
+    const connectedBoxIds = new Set(connections
+        .filter(connection => connection.includes(currentId))
+        .flat()
+        .filter(id => id !== currentId)
+    );
+    return [...connectedBoxIds].map(id => document.getElementById(id)).filter(box => box);
+};
 const getBoxes = () => document.querySelectorAll(`.container .box`);
 const getForm = () => document.querySelector(`form`);
 const getInputTitle = () => document.getElementById('inputTitle');
@@ -11,31 +32,31 @@ function setup() {
         event.preventDefault();
         console.log('submit');
 
-        const current = document.querySelector(`.box.current`);
-        if (current) {
+        document.querySelectorAll(`.box.current`).forEach(current => {
             data[`${current.id}`] = {
                 title: getInputTitle().value,
                 content: getInputContent().value
             };
             update(current);
-        }
+        });
     });
 
     const boxes = getBoxes();
-    boxes.forEach(element => {
-        update(element);
+    boxes.forEach(box => {
+        update(box);
 
-        element.addEventListener('click', () => {
-            console.log(`click ${element.id}`);
+        box.addEventListener('click', () => {
+            console.log(`click ${box.id}`);
 
             clearCurrentBoxSelection();
-            element.classList.add('current');
+            box.classList.add('current');
+            connectedBoxesOf(box).forEach(connectedBox => connectedBox.classList.add('current'));
 
             const inputTitle = getInputTitle();
             const inputContent = getInputContent();
 
-            inputTitle.value = data[`${element.id}`]?.title ?? "";
-            inputContent.value = data[`${element.id}`]?.content ?? "";
+            inputTitle.value = data[`${box.id}`]?.title ?? "";
+            inputContent.value = data[`${box.id}`]?.content ?? "";
 
             form.classList.remove('d-none');
             form.scrollIntoView();
